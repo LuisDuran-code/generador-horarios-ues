@@ -813,3 +813,36 @@ const menuBtn = document.getElementById('menu-btn');
             mobileMenu.classList.remove('flex');
         });
     });
+
+  document.addEventListener("DOMContentLoaded", function () {
+  var fullscreenVideoBtn = document.getElementById("fullscreenVideoBtn");
+  var exitFullscreenBtn = document.getElementById("exitFullscreenBtn");
+  var videoContainer = document.getElementById("videoContainer");
+
+ 
+
+  if (fullscreenVideoBtn && videoContainer) {
+    fullscreenVideoBtn.addEventListener("click", function () {
+      
+      if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+      }
+    });
+  }
+
+  if (exitFullscreenBtn) {
+    document.addEventListener("fullscreenchange", function () {
+      if (document.fullscreenElement) {
+        exitFullscreenBtn.classList.remove("hidden");
+      } else {
+        exitFullscreenBtn.classList.add("hidden");
+      }
+    });
+
+    exitFullscreenBtn.addEventListener("click", function () {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    });
+  }
+});
