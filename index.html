@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="src/style.css" />
+    <link rel="icon" type="image/png" href="public/ueslogo1.png">
+    <title>Armador de Horario</title>
+    
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 bg-white shadow-sm bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16 sm:h-20">
+
+            <!-- Logo -->
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <img src="public/ueslogo.png" class="h-8 w-auto sm:h-10 md:h-12 flex-shrink-0" alt="Logo UES">
+                <span class="text-sm sm:text-lg md:text-xl font-bold text-red-700 whitespace-nowrap truncate">
+                    Generador de Horarios UES
+                </span>
+            </div>
+
+            
+            <!-- Nav desktop -->
+<nav class="hidden md:flex gap-8 font-medium text-gray-700">
+    <a href="#inicio" class="relative py-2 hover:text-red-700 transition-colors after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-red-700 after:transition-all hover:after:w-full">Inicio</a>
+    <a href="#tutorialSection" class="relative py-2 hover:text-red-700 transition-colors after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-red-700 after:transition-all hover:after:w-full">Tutorial</a>
+    <a href="#ayudaboton" class="relative py-2 hover:text-red-700 transition-colors after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-red-700 after:transition-all hover:after:w-full">Ayuda</a>
+</nav>
+
+            <!-- Botón hamburguesa (solo móvil) -->
+            <button id="menu-btn" class="md:hidden p-2 text-gray-700" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        
+
+<!-- Menú móvil desplegable -->
+<nav id="mobile-menu" class="hidden md:hidden flex-col gap-2 pb-4 px-4 font-medium">
+    <a href="#inicio" class="block px-4 py-3 rounded-xl border border-gray-100 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-200 transition-colors">Inicio</a>
+    <a href="#tutorialSection" class="block px-4 py-3 rounded-xl border border-gray-100 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-200 transition-colors">Tutorial</a>
+    <a href="#ayudaboton" class="block px-4 py-3 rounded-xl border border-gray-100 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-200 transition-colors">Ayuda</a>
+</nav>
+    </div>
+
+    <div class="h-1 bg-red-700"></div>
+</header>
+
+    <div class="h-1 bg-red-700"></div>
+  <div class="app">
+
+    <section class="relative overflow-hidden bg-gray-50 scroll-mt-24" id="inicio">
+
+    <!-- Ícono decorativo izquierda -->
+    <svg class="hidden md:block absolute top-24 left-6 lg:left-16 w-20 h-20 text-red-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+    </svg>
+
+    <!-- Ícono decorativo derecha -->
+    <svg class="hidden md:block absolute top-32 right-6 lg:right-16 w-20 h-20 text-red-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+    </svg>
+
+    <div class="relative max-w-3xl mx-auto text-center px-4 sm:px-6 pt-16 sm:pt-20 pb-12">
+
+        <!-- Badge -->
+        <span class="inline-flex items-center gap-1.5 bg-red-50 text-red-700 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full mb-6">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Organiza tu ciclo
+        </span>
+
+        <!-- Título -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+            <span class="block text-gray-900">Generador</span>
+            <span class="block text-red-700">de horario</span>
+        </h1>
+
+        <!-- Descripción -->
+        <p class="text-base sm:text-lg text-gray-500 leading-relaxed max-w-xl mx-auto mb-10">
+            Pega el listado de materias y grupos de tu universidad. Se convierte en tarjetas seleccionables y tu calendario semanal se arma solo, avisando si dos grupos se cruzan.
+        </p>
+
+        <!-- Tarjeta de pasos -->
+        <div class="bg-white border border-gray-100 rounded-2xl shadow-sm divide-y divide-gray-100 text-left mb-8">
+
+            <div class="flex items-start gap-4 p-5 sm:p-6">
+                <div class="flex-shrink-0 w-11 h-11 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Pega</h3>
+                    <p class="text-sm text-gray-500 mt-0.5">Importa tu listado de materias y grupos fácilmente.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-5 sm:p-6">
+                <div class="flex-shrink-0 w-11 h-11 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Genera</h3>
+                    <p class="text-sm text-gray-500 mt-0.5">El sistema arma tu horario en segundos y detecta cruces.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-5 sm:p-6">
+                <div class="flex-shrink-0 w-11 h-11 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Optimiza</h3>
+                    <p class="text-sm text-gray-500 mt-0.5">Explora opciones y elige el mejor horario para ti.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <a href="#inputSection" class="w-full sm:w-auto">
+    <button class="border-none inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-red-700 hover:bg-red-800 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-sm shadow-red-900/10">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+        </svg>
+        Comenzar ahora
+    </button>
+</a>
+    </div>
+
+
+</section>
+<!-- Onda decorativa inferior  -->
+<div class="relative w-screen left-1/2 right-1/2 -mx-[50vw] mt-12">
+    <svg viewBox="0 0 1440 120" class="w-full h-16 sm:h-24 block" preserveAspectRatio="none">
+        <path fill="#fecaca" fill-opacity="0.4" d="M0,64 C240,120 480,0 720,32 C960,64 1200,120 1440,64 L1440,120 L0,120 Z"></path>
+        <path fill="#b91c1c" d="M0,96 C240,40 480,120 720,80 C960,40 1200,96 1440,48 L1440,120 L0,120 Z"></path>
+    </svg>
+</div>
+
+      <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 scroll-mt-20" id="tutorialSection">
+
+    <!-- Encabezado -->
+    <div class="text-center mb-10 sm:mb-14">
+        <span class="inline-block bg-red-50 text-red-700 text-xs sm:text-sm font-bold tracking-wide px-3 py-1 rounded-md mb-4">
+            TUTORIAL
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 leading-tight">
+            Aprende a usar el<br>
+            <span class="text-red-700">Generador de Horarios</span>
+        </h2>
+        <div class="w-16 h-1 bg-red-700 mx-auto mt-4 mb-6"></div>
+        <p class="text-gray-600 max-w-xl mx-auto text-base sm:text-lg">
+            En este video te mostramos paso a paso cómo generar tu horario ideal de forma rápida y sencilla.
+        </p>
+    </div>
+
+    <!-- Contenido: pasos + video -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-6 items-start">
+
+        <!-- Pasos -->
+        <div class="flex flex-col gap-4">
+            <div class="flex items-start gap-4 bg-white border border-gray-200 rounded-xl p-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-9-6v6a9 9 0 0018 0v-6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Selecciona tus materias</h3>
+                    <p class="text-sm text-gray-500">Elige las materias que deseas cursar en este ciclo.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white border border-gray-200 rounded-xl p-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Configura tus preferencias</h3>
+                    <p class="text-sm text-gray-500">Arma tu horario de clases como mejor te parezca.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white border border-gray-200 rounded-xl p-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Genera y compara</h3>
+                    <p class="text-sm text-gray-500">Obtén múltiples combinaciones y elige la mejor opción.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-4 bg-white border border-gray-200 rounded-xl p-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-700 text-white flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">Descarga tu horario</h3>
+                    <p class="text-sm text-gray-500">Guarda tu horario en PDF.</p>
+                </div>
+            </div>
+        </div>
+
+    <!-- Video -->
+<div class="bg-white border border-gray-200 rounded-2xl p-3 sm:p-4">
+    <div class="relative rounded-xl overflow-hidden aspect-video bg-gray-900">
+        <iframe
+    class="w-full h-full"
+    src="https://www.youtube.com/embed/5-vRBkd0O1s?modestbranding=1&rel=0&iv_load_policy=3"
+    title="Generador de Horarios UES - Tutorial paso a paso"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+></iframe>
+    </div>
+
+    <button
+        id="fullscreenVideoBtn"
+        class="w-full mt-4 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-lg py-3 flex items-center justify-center gap-2 transition-colors"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+        Ver en pantalla completa
+    </button>
+</div>
+
+    <!-- Consejo -->
+    <div class="mt-8 sm:mt-10 flex items-start sm:items-center gap-4 bg-red-50 rounded-xl p-4 sm:p-5">
+        <div class="flex-shrink-0 w-9 h-9 rounded-full bg-white flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+        </div>
+        <p class="text-sm text-gray-700">
+            <span class="font-bold text-red-700">Consejo:</span> Puedes pausar el video en cualquier momento y volver a reproducirlo para seguir los pasos a tu ritmo.
+        </p>
+    </div>
+</section>
+      
+    <section id="inputSection" class="scroll-mt-24 max-w-5xl mx-auto px-4 sm:px-6 py-12">
+
+    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sm:p-8">
+
+        <!-- Encabezado -->
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-14 h-14 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <label for="rawInput" class="block text-xl sm:text-2xl font-serif">
+                        <span class="text-gray-900">Pega aquí el</span>
+                        <span class="text-red-700 font-bold">listado de horarios</span>
+                    </label>
+                    <p class="text-gray-500 mt-1">Copia y pega la información desde el expediente académico.</p>
+                </div>
+            </div>
+
+            <button data-open-howto-modal class="flex-shrink-0 inline-flex items-center gap-2 border border-gray-200 text-red-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                ¿Cómo obtener mi horario?
+            </button>
+
+            <!-- Modal: Cómo obtener el listado -->
+<div id="howToModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Overlay -->
+    <div id="howToModalOverlay" class="absolute inset-0 bg-gray-900/50"></div>
+
+    <!-- Contenido -->
+    <div class="relative bg-white rounded-2xl shadow-lg w-full max-w-lg max-h-[90vh] flex flex-col">
+
+        <!-- Botón cerrar -->
+        <button id="closeHowToModalBtn" aria-label="Cerrar" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-red-700 hover:text-red-800 transition-colors">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <div class="overflow-y-auto p-5 sm:p-8">
+
+            <!-- Encabezado -->
+            <div class="flex items-start gap-4 pr-10 mb-6">
+                <div class="flex-shrink-0 w-14 h-14 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-serif">
+                        <span class="text-gray-900">Cómo obtener</span>
+                        <span class="text-red-700 font-bold">el listado</span>
+                    </h2>
+                    <p class="text-gray-500 mt-1 text-sm sm:text-base">
+                        Necesitas ingresar a tu expediente en línea de la UES para descargar el horario  de tus materias y grupos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pasos -->
+            <div class="flex flex-col gap-4 mb-4">
+
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-700 text-white text-sm font-bold flex items-center justify-center">1</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Ingresa al expediente en línea</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">
+                            Entra al sitio de expediente en línea de la UES con tu carnet y contraseña.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-700 text-white text-sm font-bold flex items-center justify-center">2</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Busca la sección de horario o matrícula</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">
+                            Ahí encontrarás el listado de materias y grupos disponibles para el ciclo actual.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-700 text-white text-sm font-bold flex items-center justify-center">3</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Selecciona y copia toda la tabla</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">
+                            Marca desde la primera fila (Codigo, Materia, Grupo...) hasta la última, y copia con Ctrl+C.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-700 text-white text-sm font-bold flex items-center justify-center">4</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">Pega el listado aquí</h3>
+                        <p class="text-sm text-gray-500 mt-0.5">
+                            Vuelve a esta página y pega el contenido en el cuadro de texto para generar tus tarjetas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip -->
+            <div class="flex items-start gap-3 bg-red-50 rounded-xl p-4">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-white text-red-700 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </span>
+                <p class="text-sm text-gray-700">
+                    Si no conservas las tabulaciones al copiar, revisa el botón "Ver ejemplo" para comparar el formato esperado.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer con botón -->
+        <div class="flex justify-end border-t border-gray-100 p-5 sm:p-6">
+            <button id="acceptHowToModalBtn" class="border-none inline-flex items-center justify-center gap-2 bg-red-700 hover:bg-red-800 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                Entendido
+            </button>
+        </div>
+    </div>
+</div>
+
+        </div>
+
+        <!-- Formato esperado -->
+        <div class="border border-red-100 rounded-xl overflow-hidden mb-4">
+            <div class="flex items-center justify-between gap-3 bg-red-50 px-4 sm:px-5 py-3">
+                <div class="flex items-center gap-2 min-w-0">
+                    <svg class="w-4 h-4 text-red-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="text-sm font-bold text-red-700 truncate">Formato esperado (copia y pega los horarios desde el expediente)</span>
+                </div>
+                <button data-open-example-modal class="flex-shrink-0 inline-flex items-center gap-1.5 bg-white border border-red-200 text-red-700 text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Ver ejemplo
+                </button>
+
+                <!-- Modal: Ejemplo del formato esperado -->
+<div id="exampleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Overlay -->
+    <div id="exampleModalOverlay" class="absolute inset-0 bg-gray-900/50"></div>
+
+    <!-- Contenido -->
+    <div class="relative bg-white rounded-2xl shadow-lg w-full max-w-2xl max-h-[90vh] flex flex-col">
+
+        <!-- Botón cerrar -->
+        <button id="closeExampleModalBtn" aria-label="Cerrar" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-red-700 hover:text-red-800 transition-colors">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <div class="overflow-y-auto p-5 sm:p-8">
+
+            <!-- Encabezado -->
+            <div class="flex items-start gap-4 pr-10 mb-6">
+                <div class="flex-shrink-0 w-14 h-14 rounded-full bg-red-50 text-red-700 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-serif">
+                        <span class="text-gray-900">Ejemplo del</span>
+                        <span class="text-red-700 font-bold">formato esperado</span>
+                    </h2>
+                    <p class="text-gray-500 mt-1 text-sm sm:text-base">
+                        Copia el listado directamente desde tu sistema académico sin modificar el orden de las columnas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloque de código -->
+            <div class="border border-gray-200 rounded-xl overflow-x-auto mb-4">
+                <pre id="exampleCode" class="font-mono text-xs sm:text-sm text-gray-700 p-4 whitespace-pre"></pre>
+            </div>
+
+            <!-- Tip -->
+            <div class="flex items-start gap-3 bg-red-50 rounded-xl p-4">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-white text-red-700 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </span>
+                <p class="text-sm text-gray-700">
+                    Mantén el mismo formato y las mismas columnas para que el sistema pueda interpretar correctamente el horario.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer con botones -->
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 border-t border-gray-100 p-5 sm:p-6">
+            <button id="copyExampleBtn" class="inline-flex items-center justify-center gap-2 border border-red-200 text-red-700 font-bold px-5 py-2.5 rounded-xl hover:bg-red-50 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                Copiar ejemplo
+            </button>
+            <button id="acceptExampleBtn" class="border-none inline-flex items-center justify-center gap-2 bg-red-700 hover:bg-red-800 text-white font-bold px-5 py-2.5 rounded-xl transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                Entendido
+            </button>
+        </div>
+    </div>
+</div>
+
+            </div>
+            <div class="px-4 sm:px-5 py-3 overflow-x-auto">
+                <div class="flex gap-6 sm:gap-10 font-mono text-sm text-gray-500 whitespace-nowrap">
+                    <span>Codigo</span>
+                    <span>Materia</span>
+                    <span>Grupo</span>
+                    <span>Tipo</span>
+                    <span>Horario</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Textarea (mismo id: rawInput) -->
+        <textarea
+            id="rawInput"
+            placeholder="Codigo	Materia	Grupo	Tipo Horario"
+            class="w-full h-48 sm:h-56 border border-gray-200 rounded-xl p-4 font-mono text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-400 resize-y"
+        ></textarea>
+
+        <!-- Tip + hint (mismo id: parseHint) -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-3 mb-6">
+            <div class="flex items-start gap-2 text-sm text-gray-500">
+                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-700 flex items-center justify-center mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </span>
+                <span><span class="font-bold text-red-700">Tip:</span> Asegúrate de incluir todas las columnas para mejores resultados.</span>
+            </div>
+            <p id="parseHint" class="text-sm text-gray-400 sm:flex-shrink-0"></p>
+        </div>
+
+        <!-- Botones (mismos ids: parseBtn, loadExampleBtn) -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <button id="parseBtn" class="btn-primary border-none inline-flex items-center justify-center gap-2 bg-red-700 hover:bg-red-800 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+                Generar tarjetas
+            </button>
+            <button id="loadExampleBtn" class="btn-ghost inline-flex items-center justify-center gap-2 border border-red-200 text-red-700 font-bold px-6 py-3 rounded-xl hover:bg-red-50 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0L8 12m4-4v12"/>
+                </svg>
+                Cargar ejemplo
+            </button>
+
+            <div class="sm:ml-auto flex items-center gap-3 bg-red-50 rounded-xl px-4 py-3">
+                <svg class="w-5 h-5 text-red-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                <div class="text-sm text-gray-700 leading-tight">
+                    <p class="font-bold text-gray-900">Tu información está segura</p>
+                    <p>No almacenamos tus datos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner de ayuda (ahora como botón) -->
+<button data-open-howto-modal class="border-none w-full mt-6 flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 rounded-xl px-5 py-3 text-sm text-center transition-colors cursor-pointer">
+    <svg class="w-5 h-5 text-red-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+    <span class="text-gray-700" id="ayudaboton">
+        ¿Necesitas ayuda? Consulta nuestra <span class="font-bold text-red-700">guía rápida</span> para obtener tu listado.
+    </span>
+    <svg class="w-4 h-4 text-red-700 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </svg>
+</button>
+</section>
+
+<!-- Workspace: se mantiene igual, sin tocar tu lógica -->
+<section class="workspace" id="workspace" hidden>
+    <div class="toolbar">
+        <button class="btn-ghost small" id="editRawBtn">
+            Editar texto pegado
+        </button>
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Buscar por código o materia..."
+        />
+        <div class="toolbar-stats">
+            <span id="selectedCount">0</span> materias en tu horario
+        </div>
+        <button class="btn-ghost small" id="downloadPdfBtn">
+        Descargar PDF
+    </button>
+        <button class="btn-ghost small" id="clearScheduleBtn">
+            Vaciar horario
+        </button>
+    </div>
+
+    <div class="content-grid">
+        <div class="subjects-panel" id="subjectsPanel"></div>
+        <div class="calendar-panel">
+            <div class="calendar-scroll">
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="toast-area" id="toastArea"></div>
+
+      <div class="toast-area" id="toastArea"></div>
+    </div>
+  
+  <footer class="bg-gray-50">
+    <div class="h-1 bg-red-700"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+
+        <div class="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-6 md:gap-0">
+
+            <!-- Logo + nombre -->
+            <div class="flex items-center gap-3 md:pr-8">
+                <img src="public/ueslogo1.png" class="h-12 w-auto flex-shrink-0" alt="Logo UES">
+                <span class="text-lg sm:text-xl font-bold text-red-700 whitespace-nowrap">
+                    Generador de Horarios
+                </span>
+            </div>
+
+            <!-- Descripción -->
+            <p class="text-gray-500 text-sm sm:text-base leading-relaxed md:border-l md:border-gray-200 md:px-8">
+                Herramienta académica para generar<br>
+                tu horario ideal de forma rápida y sencilla.
+            </p>
+
+            <!-- Íconos sociales -->
+            <div class="flex items-center gap-4 md:ml-auto md:border-l md:border-gray-200 md:pl-8">
+                <a href="https://www.linkedin.com/in/luis-duran-73a971351/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-red-700 hover:text-red-800 transition-colors">
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+</a>
+                <a href="https://github.com/LuisDuran-code" aria-label="GitHub" class="text-red-700 hover:text-red-800 transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.221-.253-4.556-1.113-4.556-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.58.688.482A10.02 10.02 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Línea + copyright -->
+        <div class="border-t border-gray-200 mt-8 pt-6 text-center">
+            <p class="text-sm text-gray-500">
+                © 2026 <span class="text-red-700 font-medium">Generador de Horarios UES.</span> Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
