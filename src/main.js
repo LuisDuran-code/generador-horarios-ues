@@ -1,4 +1,5 @@
-
+import { inject } from '@vercel/analytics';
+inject();
 import './style.css'
 
       (function () {
