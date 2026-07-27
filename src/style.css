@@ -276,6 +276,24 @@ body {
         font-family: "Inter", sans-serif;
         font-weight: 500;
       }
+      .group-slot.async {
+        color: #8a8680;
+      }
+      .group-slot.async b {
+        color: #6e6862;
+      }
+      .async-tag {
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: #8a8680;
+        background: #efede9;
+        border-radius: 4px;
+        padding: 1px 5px;
+        margin-left: 2px;
+      }
       .empty-msg {
         text-align: center;
         padding: 36px 18px;
@@ -351,11 +369,17 @@ body {
         font-size: 10px;
         line-height: 1.2;
         overflow: hidden;
+        border-left: 3px solid transparent;
       }
       .cal-block b {
         display: block;
         font-size: 10.5px;
         font-family: "IBM Plex Mono", monospace;
+      }
+      .cal-block.async {
+        background: #dcdad4 !important;
+        color: #4b4740 !important;
+        border-left-color: #9a968e;
       }
       .cal-empty {
         position: absolute;

@@ -297,12 +297,13 @@ downloadPdfBtn.addEventListener("click", function () {
     for (var i = 0; i < subjects.length; i++) {
       if (subjects[i].codigo === group.codigo) { subject = subjects[i]; break; }
     }
-    var rgb = hexToRgb(subject.color);
     var merged = mergeSlots(group.slots);
 
     merged.forEach(function (s) {
       var dayIndex = days.indexOf(s.day);
       if (dayIndex === -1) return;
+      var async = isAsyncDay(group.slots, s.day);
+      var rgb = async ? [220, 218, 212] : hexToRgb(subject.color);
       var x = marginX + axisWidth + dayIndex * colWidth + 0.6;
       var y = marginTop + (toMin(s.start) - minStart) * pxPerMin;
       var boxH = Math.max((toMin(s.end) - toMin(s.start)) * pxPerMin, 6);
@@ -311,7 +312,11 @@ downloadPdfBtn.addEventListener("click", function () {
       pdf.setFillColor(rgb[0], rgb[1], rgb[2]);
       pdf.roundedRect(x, y, w, boxH, 1, 1, "F");
 
-      pdf.setTextColor(255, 255, 255);
+      if (async) {
+        pdf.setTextColor(75, 71, 64);
+      } else {
+        pdf.setTextColor(255, 255, 255);
+      }
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(7);
       pdf.text(group.codigo + "-" + group.grupo, x + 1.2, y + 3, { maxWidth: w - 2 });
@@ -319,7 +324,8 @@ downloadPdfBtn.addEventListener("click", function () {
       if (boxH > 7) {
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(6.5);
-        pdf.text(fmt(s.start) + "-" + fmt(s.end), x + 1.2, y + 6.5, { maxWidth: w - 2 });
+        var timeLabel = fmt(s.start) + "-" + fmt(s.end) + (async ? " (async)" : "");
+        pdf.text(timeLabel, x + 1.2, y + 6.5, { maxWidth: w - 2 });
       }
     });
   });
@@ -647,8 +653,15 @@ downloadPdfBtn.addEventListener("click", function () {
               var merged = mergeSlots(group.slots);
               var slotsHtml = merged
                 .map(function (s) {
+                  var async = isAsyncDay(group.slots, s.day);
+                  var cls = "group-slot" + (async ? " async" : "");
+                  var tag = async
+                    ? ' <span class="async-tag">as\u00edncrono</span>'
+                    : "";
                   return (
-                    '<div class="group-slot"><b>' +
+                    '<div class="' +
+                    cls +
+                    '"><b>' +
                     esc(s.day) +
                     "</b> " +
                     fmt(s.start) +
@@ -656,6 +669,7 @@ downloadPdfBtn.addEventListener("click", function () {
                     fmt(s.end) +
                     " \u00b7 " +
                     esc(s.room) +
+                    tag +
                     "</div>"
                   );
                 })
@@ -773,13 +787,14 @@ downloadPdfBtn.addEventListener("click", function () {
                 return s.day === day;
               });
               merged.forEach(function (s) {
+                var async = isAsyncDay(group.slots, s.day);
                 var top = (toMin(s.start) - minStart) * pxPerMin;
                 var height = (toMin(s.end) - toMin(s.start)) * pxPerMin;
                 var blockEl = document.createElement("div");
-                blockEl.className = "cal-block";
+                blockEl.className = "cal-block" + (async ? " async" : "");
                 blockEl.style.top = top + "px";
                 blockEl.style.height = Math.max(height, 18) + "px";
-                blockEl.style.background = subject.color;
+                if (!async) { blockEl.style.background = subject.color; }
                 blockEl.innerHTML =
                   "<b>" +
                   esc(group.codigo) +
@@ -788,8 +803,13 @@ downloadPdfBtn.addEventListener("click", function () {
                   "</b>" +
                   fmt(s.start) +
                   "\u2013" +
-                  fmt(s.end);
-                blockEl.title = group.materia + " \u00b7 " + s.room;
+                  fmt(s.end) +
+                  (async ? " \u00b7 as\u00edncrono" : "");
+                blockEl.title =
+                  group.materia +
+                  " \u00b7 " +
+                  s.room +
+                  (async ? " (as\u00edncrono)" : " (sincr\u00f3nico)");
                 body.appendChild(blockEl);
               });
             });
@@ -797,6 +817,32 @@ downloadPdfBtn.addEventListener("click", function () {
             col.appendChild(body);
             calendarGrid.appendChild(col);
           });
+        }
+
+        // Regla confirmada: por grupo, el ÚNICO día sincrónico posible es el
+        // más tardío en la semana (Lunes→Domingo) entre los días cuyo total
+        // de minutos es EXACTAMENTE 100. Todos los demás días de ese grupo
+        // son asincrónicos, incluso si también suman 100 o cualquier otro valor.
+        function dayTotalsForSlots(slots) {
+          var totals = {};
+          slots.forEach(function (s) {
+            totals[s.day] = (totals[s.day] || 0) + (toMin(s.end) - toMin(s.start));
+          });
+          return totals;
+        }
+        function syncDayFor(slots) {
+          var totals = dayTotalsForSlots(slots);
+          var candidates = Object.keys(totals).filter(function (day) {
+            return totals[day] === 100;
+          });
+          if (candidates.length === 0) return null;
+          candidates.sort(function (a, b) {
+            return DAY_ORDER.indexOf(b) - DAY_ORDER.indexOf(a);
+          });
+          return candidates[0];
+        }
+        function isAsyncDay(slots, day) {
+          return day !== syncDayFor(slots);
         }
       })();
 
